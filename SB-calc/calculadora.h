@@ -8,3 +8,4 @@ int Prioridade(char c, char t);
 void InfParaPos(char expr[], char *pSaida);
 int64_t calcular(char *expr);
 int64_t to48bit(int64_t);
+int64_t modulo(int64_t);

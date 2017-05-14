@@ -10,6 +10,10 @@
 int64_t to48bit(int64_t num64){
   return num64 & 0x0000FFFFFFFFFFFF;;
 }
+int64_t modulo(int64_t num){
+  int64_t z = (num>0)? num: (-num);
+  return z;
+}
 
 /* Permite o usuario editar uma expressao ao remover ou adicionar caracteres */
 void editar(char *expr){
@@ -282,7 +286,7 @@ int64_t  calcular(char *expr){
 
             /* transforma numeros (char) em inteiros e os adiciona na pilha */
             int64_t  z = atof(aux);
-            if((z & 0xFFFF000000000000) != 0){
+            if((modulo(z) & 0xFFFF000000000000) != 0){
               printf("o número não pode ser representado em 48bits\n");
               return 0;
             }
@@ -299,7 +303,7 @@ int64_t  calcular(char *expr){
             y = Pop(p);
             x = Pop(p);
 
-            if(((x+y) & 0xFFFF000000000000) != 0){
+            if((modulo(x+y) & 0xFFFF000000000000) != 0){
               printf("o número não pode ser representado em 48bits\n");
               return 0;
             }
@@ -313,7 +317,7 @@ int64_t  calcular(char *expr){
             x = Pop(p);
             /* adiciona o resultado na pilha */
 
-            if(((x-y) & 0xFFFF000000000000) != 0){
+            if((modulo(x-y) & 0xFFFF000000000000) != 0){
               printf("o número não pode ser representado em 48bits\n");
               return 0;
             }
@@ -326,7 +330,7 @@ int64_t  calcular(char *expr){
             y = Pop(p);
             x = Pop(p);
 
-            if(((x*y) & 0xFFFF000000000000) != 0){
+            if((modulo(x*y) & 0xFFFF000000000000) != 0){
               printf("o número não pode ser representado em 48bits\n");
               return 0;
             }
@@ -339,7 +343,7 @@ int64_t  calcular(char *expr){
             y = Pop(p);
             x = Pop(p);
 
-            if(((x/y) & 0xFFFF000000000000) != 0){
+            if((modulo(x/y) & 0xFFFF000000000000) != 0){
               printf("o número não pode ser representado em 48bits\n");
               return 0;
             }
@@ -354,7 +358,7 @@ int64_t  calcular(char *expr){
             x = Pop(p);
 
             y = pow(x,y);
-            if((y & 0xFFFF000000000000) != 0){
+            if((modulo(y) & 0xFFFF000000000000) != 0){
               printf("o número não pode ser representado em 48bits\n");
               return 0;
             }
