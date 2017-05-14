@@ -1,0 +1,26 @@
+IDIR =../include
+CC=gcc
+CFLAGS=-I$(IDIR)
+
+ODIR=obj
+LDIR =../lib
+
+LIBS=-lm
+
+_DEPS = pilha.h calculadora.h
+DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
+
+_OBJ = teste_calculadora.o pilha.o calculadora.o
+OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
+
+
+$(ODIR)/%.o: %.c $(DEPS)
+	$(CC) -ftest-coverage -fprofile-arcs -c -o $@ $< $(CFLAGS)
+
+teste_calculadora: $(OBJ)
+	gcc -ftest-coverage -fprofile-arcs -o $@ $^ -lcunit $(CFLAGS) $(LIBS)
+
+.PHONY: clean
+
+clean:
+	rm -f $(ODIR)/*.o $(ODIR)/*.gcda $(ODIR)/*.gcno *~ core $(INCDIR)/*~

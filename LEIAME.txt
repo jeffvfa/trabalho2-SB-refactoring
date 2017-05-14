@@ -1,0 +1,27 @@
+Aluno: Matheus de Oliveira Vieira
+Matricula: 13/0126420
+
+Para utilizar o programa:
+	1. Navegue até a pasta /src/ onde está o arquivo "main.c"
+	2. Renomeie o arquivo "makefile_main" para "makefile"
+	3. Digite "make" para compilar o programa
+	4. Digite "./main" para rodar o programa
+	
+Para rodar o teste do CUnit:
+	1. Navegue até a pasta /src/ onde está o arquivo "teste_calculadora.c"
+	2. Renomeie o arquivo "makefile_teste" para "makefile"
+	3. Digite "make" para compilar o programa
+	4. Digite "./teste_calculadora" para rodar o programa
+	
+	Atenção: O ultimo teste testa a função de edição de uma expressão, então é
+		necessário que o usuário siga as instuções do programa sobre
+		quais caracteres devem ser adicionados ou removidos.
+
+Para verificar a porcentagem do codigo testado pelo CUnit:
+	1. Siga todos os passos anteriores de como rodar o teste do CUnit
+	2. Navegue até a pasta /src/obj/
+	3. Para ver a porcentagem de um unico arquivo digite "gcov nomedoarquivo"
+	4. Para ver as porcentagens de todos os arquivps digite "gcov *"
+
+Localizaçao da documentação:
+	130126420/html/calculadora_8c.html
