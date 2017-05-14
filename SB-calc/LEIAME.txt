@@ -1,0 +1,13 @@
+SOFTWARE BÁSICO
+TRABALHO 2 - CALCULADORA POLONESA REVERSA
+Alunos:
+Jefferson Viana Fonseca Abreu - 13/0028959 : Responsável pela função "editar", que permite o usuario editar uma expressao a ser calculada
+Matheus de Oliveira Vieira - 13/0126420 : Responsável pela função de transformação de uma expressao na forma infixada para a forma pós-fixada
+Otávio Alves Dias - 12/0131480 : Responsável por criar as funções básicas de pilha e analisar a prioridade dos operadores
+
+
+Para utilizar o programa:
+	1. Navegue até a pasta /src/ onde está o arquivo "main.c"
+	2. Compile com gcc -Wall -std=c99 pilha.c calculadora.c main.c -o trab2
+	3. Rode o executável e selecione uma opção no menu
+	4. A primeira opção apenas insere uma expressão na memória do programa, a segunda opção permite que você a altere, a terceira calcula o valor previamente inserido e a quarta finaliza o programa.
