@@ -115,7 +115,7 @@ int main(){
             if(posfix[0] != '\0'){
                 resultado = calcular(posfix);
                 /* imprime resultado da expressao */
-                printf("%s = %d \n\n", expr, resultado);
+                printf("%s = %ld \n\n", expr, resultado);
             }
             else{
                 printf("Insira uma expressao no programa primeiro \n\n");

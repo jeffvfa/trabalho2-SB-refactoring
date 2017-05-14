@@ -7,6 +7,10 @@
 #include <stdint.h>
 
 
+int64_t to48bit(int64_t num64){
+  return num64 & 0x0000FFFFFFFFFFFF;;
+}
+
 /* Permite o usuario editar uma expressao ao remover ou adicionar caracteres */
 void editar(char *expr){
     if ( expr[0] == '\0' ){
@@ -28,7 +32,7 @@ void editar(char *expr){
         if( expr[i] != ' ' && expr[i] != '\n' ){
             expr2[j] = expr[i];
             j++;
-        } 
+        }
     }
 
     expr2[j] = '\0';
@@ -128,9 +132,9 @@ int testarExpr(char *expr){
         DestruirPilha(p);
         return 0;
     }
-	
+
     DestruirPilha(p);
-	
+
     return 1;
 }
 
@@ -163,7 +167,7 @@ int Prioridade(char c1, char c2)
 
 /*   Transforma uma expressao na forma infixada para a forma posfixada ou polonesa reversa */
 void InfParaPos(char expr[], char *pSaida){
- 
+
     if ( pSaida == NULL ){
         return ;
 
@@ -255,7 +259,7 @@ int64_t  calcular(char *expr){
 
     char c, aux[10];
 
-    int64_t  resp = 0.0;
+    int64_t  resp = 0;
 
     p = CriarPilha();
 
@@ -278,6 +282,11 @@ int64_t  calcular(char *expr){
 
             /* transforma numeros (char) em inteiros e os adiciona na pilha */
             int64_t  z = atof(aux);
+            if((z & 0xFFFF000000000000) != 0){
+              printf("o número não pode ser representado em 48bits\n");
+              return 0;
+            }
+            z = to48bit(z);
             Push(p, z);
 
             j = 0;
@@ -289,6 +298,11 @@ int64_t  calcular(char *expr){
             int64_t  x, y = 0;
             y = Pop(p);
             x = Pop(p);
+
+            if(((x+y) & 0xFFFF000000000000) != 0){
+              printf("o número não pode ser representado em 48bits\n");
+              return 0;
+            }
             /* adiciona o resultado na pilha */
             Push(p, x+y);
 
@@ -298,6 +312,12 @@ int64_t  calcular(char *expr){
             y = Pop(p);
             x = Pop(p);
             /* adiciona o resultado na pilha */
+
+            if(((x-y) & 0xFFFF000000000000) != 0){
+              printf("o número não pode ser representado em 48bits\n");
+              return 0;
+            }
+
             Push(p, x-y);
 
         }else if(c == '*'){
@@ -305,6 +325,12 @@ int64_t  calcular(char *expr){
             int64_t  x, y = 0;
             y = Pop(p);
             x = Pop(p);
+
+            if(((x*y) & 0xFFFF000000000000) != 0){
+              printf("o número não pode ser representado em 48bits\n");
+              return 0;
+            }
+
             Push(p, x*y);
 
         }else if(c == '/'){
@@ -312,13 +338,27 @@ int64_t  calcular(char *expr){
             int64_t  x, y = 0;
             y = Pop(p);
             x = Pop(p);
+
+            if(((x/y) & 0xFFFF000000000000) != 0){
+              printf("o número não pode ser representado em 48bits\n");
+              return 0;
+            }
+
             Push(p, x/y);
 
-        }else if(c == '^'){
-            /* calcula o 2o elemento do topo elevado ao elemento do topo */
+        }
+        else if(c == '^'){
+            // calcula o 2o elemento do topo elevado ao elemento do topo
             int64_t  x, y = 0;
             y = Pop(p);
             x = Pop(p);
+
+            y = pow(x,y);
+            if((y & 0xFFFF000000000000) != 0){
+              printf("o número não pode ser representado em 48bits\n");
+              return 0;
+            }
+
             Push(p, pow(x,y));
         }
 
